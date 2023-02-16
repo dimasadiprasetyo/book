@@ -14,7 +14,7 @@
                 <img src="dist/img/avatar/avatar-1.png" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Administrasi</a>
+                <a href="#" class="d-block">{{auth()->user()->name}}</a>
             </div>
         </div>
 
@@ -60,8 +60,8 @@
                     </a>
                 </li><!--Transaksi-->
                 <li class="nav-item">
-                    <a href="{{route('trk.index')}}" class="nav-link">
-                        <i class="nav-icon fas fa-folder"></i>
+                    <a href="{{route('user.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
                         <p>
                             User
                             <!-- <i class="right fas fa-angle-left"></i> -->

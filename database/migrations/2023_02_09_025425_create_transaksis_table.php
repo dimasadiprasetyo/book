@@ -15,14 +15,16 @@ class CreateTransaksisTable extends Migration
     {
         Schema::create('transaksis', function (Blueprint $table) {
             $table->bigIncrements('id_ts');
-            // $table->char('id_master');
             $table->string('nama_apk');
+            // $table->char('id_master',10);
             $table->text('keterangan');
             $table->string('catatan');
             $table->text('Lk');
             $table->timestamps();
 
-            $table->foreignId('id_master')->constrained('masters')->onUpdate('cascade')->onDelete('cascade');
+            // $table->foreignId('id_master')->constrained('masters')->nullOnDelete();
+            $table->foreignId('id_master')->nullable()->constrained('masters')->OnDelete('set null')->onUpdate('set null');
+            
         });
     }
 

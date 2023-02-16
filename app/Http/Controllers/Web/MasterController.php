@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Master;
@@ -36,7 +36,6 @@ class MasterController extends Controller
        $Masters = Master::orderBy("id_master", "desc")->get();
        return response()->json([
            'Masters' => $Masters,
-            'success' => true,
        ]);
     }
     /**

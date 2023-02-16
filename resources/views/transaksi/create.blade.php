@@ -61,7 +61,8 @@
                       </div>
 
                       <button type="submit" class="btn btn-success">SIMPAN</button>
-                      <button type="submit" class="btn btn-warning">BATAL</button>
+                      <a href="{{route('trk.index')}}" class="btn btn-warning">BATAL</a>
+                      {{-- <button type="submit" class="btn btn-warning">BATAL</button> --}}
                   </form>
               </div>
           </div>

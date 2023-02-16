@@ -13,35 +13,45 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/', function () {return view('auth.login');})->name('login');
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('user/login', 'Auth\UserAuthController@getLogin')->name('user.login');
-Route::post('user/login', 'Auth\UserAuthController@postLogin');
+Route::post('/postlogin','Web\LoginController@postlogin')->name('postlogin');
+Route::get('/logout','Web\LoginController@logout')->name('logout');
+// Route::get('user/login', 'Auth\UserAuthController@getLogin')->name('user.login');
+// Route::post('user/login', 'Auth\UserAuthController@postLogin');
+// Route::post('user/logout', 'Auth\UserAuthController@postLogout')->name('user.logout');
 
-Route::middleware('auth:user')->group(function(){
+// Route::middleware('auth:user')->group(function(){
+Route::group(['middleware' => ['auth']], function(){
+    Auth::routes();
+      // master
+      Route::get('/master','Web\MasterController@index')->name('master.index');
+      Route::get('/tambah','Web\MasterController@create')->name('tambah.create');
+      Route::get('/read/{id_master}','Web\MasterController@read')->name('read');
+      Route::get('/store','Web\MasterController@store')->name('store');
+      Route::get('/show/{id}','Web\MasterController@show')->name('show');
+      Route::get('/update/{id}','Web\MasterController@update')->name('update');
+      Route::delete('delete/{id}', 'Web\MasterController@destroy')->name('delete.master');
 
-    Route::get('/', function () {
-        return view('layout/template');
-    });
+      // transaksi
+      Route::get('/trk','Web\TransaksiController@index')->name('trk.index');
+      Route::get('/create','Web\TransaksiController@create')->name('trk.create');
+      Route::post('/store','Web\TransaksiController@store')->name('store');
+      Route::get('/edit/{id_ts}','Web\TransaksiController@show')->name('edit');
+      Route::post('/update','Web\TransaksiController@update')->name('update');
+      Route::delete('/delete/trx/{id_ts}','Web\TransaksiController@destroy')->name('delete.trx');
     
-    // master
-    Route::get('/master','Api\MasterController@index')->name('master.index');
-    Route::get('/tambah','Api\MasterController@create')->name('tambah.create');
-    Route::get('/read/{id_master}','Api\MasterController@read')->name('read');
-    Route::get('/store','Api\MasterController@store')->name('store');
-    Route::get('/show/{id}','Api\MasterController@show')->name('show');
-    Route::get('/update/{id}','Api\MasterController@update')->name('update');
-    Route::delete('delete/{id}', 'Api\MasterController@destroy')->name('delete.master');
-    // transaksi
-    Route::get('/trk','Api\TransaksiController@index')->name('trk.index');
-    Route::get('/create','Api\TransaksiController@create')->name('trk.create');
-    Route::post('/store','Api\TransaksiController@store')->name('store');
-    Route::get('/edit/{id_ts}','Api\TransaksiController@show')->name('edit');
-    Route::post('/update','Api\TransaksiController@update')->name('update');
-    
+      //   user
+    Route::get('/user', 'Web\PenggunaController@index')->name('user.index');
+    Route::get('/user/read/{id}','Web\PenggunaController@read')->name('read.user');
+    Route::get('/user/create','Web\PenggunaController@create')->name('create.user');
+    Route::get('/user/editpas','Web\PenggunaController@editpas')->name('editpas.user');
+    Route::patch('password', 'Web\PenggunaController@updateuser')->name('user.password.update');
+    Route::get('/user/store','Web\PenggunaController@store')->name('store.user');
+    Route::delete('delete/user/{id}', 'Web\PenggunaController@destroy')->name('delete.user');
+
 });
 
 
-Auth::routes();
 
 

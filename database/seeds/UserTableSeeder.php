@@ -3,6 +3,7 @@
 
 use App\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class UserTableSeeder extends Seeder
 {
@@ -15,8 +16,10 @@ class UserTableSeeder extends Seeder
     {
         User::create([
             'name' => 'user',
-            'email' => 'user@admin.com',
+            'username' => 'admin',
+            'level' => 'Admin',
             'password' => bcrypt(12345),
+            // 'remember_token'=>Str::random(60),
         ]);
     }
 }

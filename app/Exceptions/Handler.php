@@ -1,12 +1,10 @@
 <?php
-
 namespace App\Exceptions;
 
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Support\Arr;
 use Throwable;
-
+use Illuminate\Support\Arr;
 class Handler extends ExceptionHandler
 {
     /**
@@ -17,7 +15,6 @@ class Handler extends ExceptionHandler
     protected $dontReport = [
         //
     ];
-
     /**
      * A list of the inputs that are never flashed for validation exceptions.
      *
@@ -39,20 +36,18 @@ class Handler extends ExceptionHandler
         }
         return redirect()->route($route);
     }
-
     /**
      * Report or log an exception.
      *
      * @param  \Throwable  $exception
      * @return void
      *
-     * @throws \Throwable
+     * @throws \Exception
      */
     public function report(Throwable $exception)
     {
         parent::report($exception);
     }
-
     /**
      * Render an exception into an HTTP response.
      *

@@ -2,9 +2,11 @@
 namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use AuthenticatesUsers;
 class UserAuthController extends Controller
 {
    
+ 
     protected $maxAttempts = 3;
     protected $decayMinutes = 2;
     public function __construct()
@@ -22,7 +24,7 @@ class UserAuthController extends Controller
             'email' => 'required|email',
             'password' => 'required|min:5'
         ]);
-        if (auth()->guard('user')->attempt($request->only('email', 'password'))) {
+        if (auth()->guard('users')->attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
             $this->clearLoginAttempts($request);
             return redirect()->intended();

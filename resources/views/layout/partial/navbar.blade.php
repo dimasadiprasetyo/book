@@ -13,18 +13,17 @@
     <ul class="navbar-nav ml-auto">
         <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                 <img alt="image" src="{{asset('dist/img/avatar/avatar-1.png')}}" width="30px" height="30px" class="rounded-circle elevation-2 mr-1">
-                <div class="d-sm-none d-lg-inline-block" style="color: white;">Hi, Admin</div>
+                <div class="d-sm-none d-lg-inline-block" style="color: white;">Hi, {{auth()->user()->name}}</div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-                <a href="#" class="dropdown-item has-icon">
+                <a href="{{route('editpas.user')}}" class="dropdown-item has-icon">
                     <i class="fas fa-lock"></i> Ubah Sandi
                 </a>
-                <a href="#" class="dropdown-item has-icon text-danger">
+                <a href="{{route('logout')}}" class="dropdown-item has-icon text-danger" >
                     <i class="fas fa-sign-out-alt"></i> Logout
                     <div class="dropdown-divider"></div>
                 </a>
             </div>
         </li>
     </ul>
- 
 </nav>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Master;
@@ -64,36 +64,15 @@ class TransaksiController extends Controller
                 'Lk.required'=>'Masukkan Data! apabila kosong tulis -',
             ]
         );
-        if($validation->fails()) {
-
-            return response()->json([
-                'success' => false,
-                'message' => 'Silahkan Isi Bidang Yang Kosong',
-                'data'    => $validation->errors()
-            ],401);
-
-        }else{
-            $post = Transaksi::create([
-                'id_master'=>$request->id_master,
-                'nama_apk'=>$request->nama_apk,
-                'keterangan'=>$request->keterangan,
-                'catatan'=>$request->catatan,
-                'Lk'=>$request->Lk,
-            ]);
-            return redirect(route('trk.index'));
-            if ($post) {
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Post Berhasil Disimpan!',
-                ], 200);
-            }else{
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Post Gagal Disimpan!',
-                ], 401);
-            }
-        }
-
+        Transaksi::create([
+            'id_master'=>$request->id_master,
+            'nama_apk'=>$request->nama_apk,
+            'keterangan'=>$request->keterangan,
+            'catatan'=>$request->catatan,
+            'Lk'=>$request->Lk,
+        ]);
+        return redirect(route('trk.index'));
+        // return redirect()->to('trk.index');
       
     }
 

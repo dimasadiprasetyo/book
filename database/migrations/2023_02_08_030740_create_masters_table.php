@@ -15,7 +15,7 @@ class CreateMastersTable extends Migration
     {
         Schema::create('masters', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->char('id_master',10)->nullable();
+            $table->char('id_master',10);
             $table->string('nama_master')->nullable();
             $table->text('keterangan')->nullable();
             $table->timestamps();

@@ -40,13 +40,17 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
+        'user' => [
+            'driver' => 'session',
+            'provider' => 'users', 
+        ],
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
             'hash' => false,
         ],
     ],
+    
     
 
     /*
@@ -72,10 +76,10 @@ return [
             'model' => App\User::class,
         ],
 
-        'users' => [
-            'driver' => 'database',
-            'table' => 'users',
-        ],
+        // 'users' => [
+        //     'driver' => 'database',
+        //     'table' => 'users',
+        // ],
     ],
 
     /*
@@ -96,9 +100,10 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'email' => 'auth.emails.password',
             'table' => 'password_resets',
             'expire' => 60,
-            'throttle' => 60,
+            
         ],
     ],
 
