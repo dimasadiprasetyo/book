@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Dashboard</title>
+    <title>@yield('title') {{config('app.name')}}</title>
 
     @stack('awal')
     <!-- Google Font: Source Sans Pro -->
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="{{asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    
+    <link rel="icon" href="{{ URL::asset('dist/img/icon.png') }}" type="image/x-icon"/>
     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
@@ -26,6 +26,8 @@
       <link rel="stylesheet" href="{{asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
       <link rel="stylesheet" href="{{asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
       <link rel="stylesheet" href="{{asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+
+      <link rel="stylesheet" href="{{asset('dist/css/jquery.dataTables.min.css')}}">
     {{-- end --}}
 
 
@@ -110,6 +112,7 @@
 
     {{-- datatable --}}
       <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
+      <script src="{{asset('plugins/datatables/jquery.dataTables.js')}}"></script>
       <script src="{{asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
       <script src="{{asset('plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
       <script src="{{asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
@@ -121,6 +124,7 @@
       <script src="{{asset('plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
       <script src="{{asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
       <script src="{{asset('plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+      
     {{-- endtable --}}
   </body>
 </html>

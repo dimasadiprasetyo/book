@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Master;
+use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -140,5 +141,11 @@ class MasterController extends Controller
             'status'=>200,
             'pesan'=>'data tidak diketahui '
         ]);
+    }
+
+    public function Yajra(Request $request){
+        $query = Master::with(['badges'])->select(sprintf('%s.*', (new Master())->table));
+        $table = Datatables::of($query);
+        return $table->make(true);
     }
 }

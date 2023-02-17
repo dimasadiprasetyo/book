@@ -1,6 +1,6 @@
 @extends('layout.template')
 @section('title')
-    transaksi
+    Transasksi Edit
 @endsection
 @section('judul')
     <!-- <h1 class="fas fa-bell"> </h1>  -->
@@ -77,3 +77,13 @@
     </div>
 @endsection
 
+@push('awal')
+@endpush
+@push('akhir') 
+<script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+<script>
+  $(window).load(function () {
+  CKEDITOR.replace('Lk');
+  });
+  </script>
+@endpush

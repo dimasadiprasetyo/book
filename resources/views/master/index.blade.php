@@ -89,17 +89,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 @endpush
 @push('akhir')
-    {{-- datatables --}}
-        <script type="text/javascript">
-            $(function () {
-                $("#example1").DataTable({
-                    "responsive": true, "lengthChange": false, "autoWidth": false,
-                    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            });
-        </script>
-    {{-- end --}}
-    
+ 
+    <script type="text/javascript"> 
+    </script>
+
+
+
     <script type="text/javascript">
         $(document).ready(function(){
             lihat()

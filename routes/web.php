@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth']], function(){
       Route::get('/show/{id}','Web\MasterController@show')->name('show');
       Route::get('/update/{id}','Web\MasterController@update')->name('update');
       Route::delete('delete/{id}', 'Web\MasterController@destroy')->name('delete.master');
+      Route::get('yajra/Yajra', 'Web\MasterController@Yajra')->name('yajra');
 
       // transaksi
       Route::get('/trk','Web\TransaksiController@index')->name('trk.index');

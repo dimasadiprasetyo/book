@@ -1,7 +1,7 @@
 @extends('layout.template')
 
 @section('title')
-    transaksi
+    Transaksi Create
 @endsection
 
 @section('judul')

@@ -1,6 +1,6 @@
 @extends('layout.template')
 @section('title')
-    transaksi
+    Transaksi
 @endsection
 @section('judul')
     <!-- <h1 class="fas fa-bell"> </h1>  -->
@@ -24,17 +24,16 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        {{-- <table class="table table-striped table-bordered dt-responsive nowrap" style="text-align: center;"  id="example1"> --}}
-                            <table class="table table-striped table-bordered dt-responsive nowrap" style="text-align: center; width: 100%; height: 100%;"  id="example1">
+                            <table class="table table-striped table-bordered dt-responsive nowrap" width="auto" style="text-align: center; width: 100%; height: 100%;"  id="example1">
                             <thead class="table-dark">
                                 <tr>
-                                    <th width="12%">No</th>
+                                    <th>No</th>
                                     <th>Nama Master</th>
-                                    <th>Nama Aplikasi</th>
-                                    <th>Keterangan</th>
-                                    <th>Catatan</th>
-                                    <th>Langkah - langkah</th>
-                                    <th>Aksi</th>
+                                    <th >Nama Aplikasi</th>
+                                    <th >Keterangan</th>
+                                    <th >Catatan</th>
+                                    <th >Langkah - langkah</th>
+                                    <th >Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -75,13 +74,13 @@
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            Apakah Anda Yakin ingin menghapus data?
+                                                        Apakah Anda Yakin ingin menghapus data?
                                                         </div>
                                                         <div class="modal-footer">
                                                             <input type="hidden" name="data_" class="Data_">
                                                             <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">Keluar</button>
-                                                            <button type="submit" class="btn btn-primary">Simpan</button>
+                                                                data-dismiss="modal">Tidak</button>
+                                                            <button type="submit" class="btn btn-primary">Ya</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -99,25 +98,8 @@
         </div>
     </div>
 @endsection
-@section('awal')
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-
-@endsection
-@section('akhir')
-    {{-- datatables --}}
-        <script type="text/javascript">
-
-            $(document).ready(function(){
-                $("#example1").DataTable({
-                    "responsive": true, "lengthChange": false, "autoWidth": false,
-                    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            });
-        </script>
-    {{-- end --}}
-@endsection
+@push('awal')
+@endpush
+@push('akhir')
+@endpush
 

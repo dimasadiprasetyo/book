@@ -1,4 +1,5 @@
 <div class="p2">
+    <input type="hidden" id="id" name="id">
     <div class="form-group">
         <label for="id_master" style="font-size: 15px" style="color: black">Kode Master</label>
         <input type="text" class="form-control col-11" id="id_master" name="id_master" placeholder="Masukkan Kode Master" required oninvalid="this.setCustomValidity('Data tidak boleh kosong')" oninput="setCustomValidity('')">
