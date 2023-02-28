@@ -5,7 +5,7 @@
 @section('judul')
     <!-- <h1 class="fas fa-bell"> </h1>  -->
     <h1 style="color:black">
-        <font size="5" face="Century Gothic"><i class="fa fa-laptop" style='font-size:25px;'></i>&nbsp;USER </font>
+        <font size="5" face="Century Gothic"><i class="fa fa-users" style='font-size:25px;'></i>&nbsp;USER </font>
     </h1>
 @endsection
 @section('home')
@@ -21,18 +21,18 @@
     <div class="card">
         <div class="card-header">
             <div class="d-flex justify-content-between">
-                <a href="#" class="btn btn-success" onclick="create()"><i class="fas fa-plus"></i> Tambah Data</a>
+                <a href="#" class="btn btn-success btn-sm" onclick="create()"><i class="fas fa-plus"></i> Tambah Data</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered dt-responsive nowrap" style="text-align: center"  id="example1">
                         <thead class="table-dark">
                             <tr>
-                                <th width="12%">No</th>
-                                <th >Nama user</th>
-                                <th>Username</th>
-                                <th>Level</th>
-                                <th>Aksi</th>
+                                <th width="12%">NO</th>
+                                <th >NAMA USER</th>
+                                <th>USERNAME</th>
+                                <th>LEVEL/ROLE</th>
+                                <th>AKSI</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -71,9 +71,10 @@
                         <input type="hidden" id="modal_del">
                         <Span>Apakah anda yakin ingin menghapus</Span>
                     </div>
+                    
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
-                        <button type="button" class="btn btn-warning del_ya" onclick="hapus()">Ya</button>
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Tidak</button>
+                        <button type="button" class="btn btn-warning del_ya btn-sm" onclick="hapus()">Ya</button>
                     </div>
                 </div>
             </div>
@@ -86,16 +87,19 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 @endpush
 @push('akhir')
-    {{-- datatables --}}
-        <script type="text/javascript">
-            $(function () {
-                    $("#example1").DataTable({
-                        "responsive": true, "lengthChange": false, "autoWidth": false,
-                        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-                    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-                });
-        </script>
-    {{-- end --}}     
+<script>
+    $('#search').on('keyup',function(){
+        $value=$(this).val();
+        $.ajax({
+        type : 'get',
+        url : '{{URL::to('search')}}',
+        data:{'search':$value},
+        success:function(data){
+        $('tbody').html(data);
+        }
+        });
+    })
+</script>
 
 
     <script type="text/javascript">
@@ -119,12 +123,12 @@
                                         <td style="font-size: 14px">${no}</td>
                                         <td style="font-size: 14px">${User.name}</td>
                                         <td style="font-size: 14px">${User.username}</td>
-                                        <td style="font-size: 14px">${User.level}</td> 
+                                        <td style="font-size: 14px">${User.level}</td>
                                         <td>     
                                             <button type="submit" class="btn btn-danger btn-sm delete show_confirm" value="${User.id}" id="show_confirm" >
-                                                <i class="fa fa-trash fa-fw" aria-hidden="true"></i>&nbsp;Hapus
+                                               Hapus
                                             </button>
-                                </td>     
+                                        </td>     
                                     </tr>`
                                 $('tbody').append(row);
                                 no++;
@@ -183,27 +187,27 @@
         $('#exampleModalHapus').modal('show');
       });
 
-    //   hapus
-      function hapus(){
-          var del_id = $('#modal_del').val();
-          var id = $('id');
-          $.ajax({
-            type: "DELETE",
-            url: "{{url('delete/user')}}/" + del_id,
-            data: {
-                _token: "{{ csrf_token() }}",
-            },
-            success:function(response){
-                // console.log(response);
-                console.log('berhasil hapus');
-                $('#succes_message').addClass('alert alert-success');
-                $('#succes_message').text(response.message);
-                $('#exampleModalHapus').modal('hide')
-                lihat();
-            }
+        //   hapus
+        function hapus(){
+            var del_id = $('#modal_del').val();
+            var id = $('id');
+            $.ajax({
+                type: "DELETE",
+                url: "{{url('delete/user')}}/" + del_id,
+                data: {
+                    _token: "{{ csrf_token() }}",
+                },
+                success:function(response){
+                    // console.log(response);
+                    console.log('berhasil hapus');
+                    $('#succes_message').addClass('alert alert-success');
+                    $('#succes_message').text(response.message);
+                    $('#exampleModalHapus').modal('hide')
+                    lihat();
+                }
 
-        });
-      }
+            });
+        }
         
     </script>
 @endpush

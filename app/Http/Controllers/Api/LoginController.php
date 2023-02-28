@@ -19,10 +19,12 @@ class LoginController extends Controller
         // $up = $request->only('username','password');
 
         if (Auth::attempt($request->only('username', 'password'),$ingat)) {
-            return redirect('/home')->with('success','Selamat! Anda telah berhasil Login');
+            // return redirect('/home')->with('success','Selamat! Anda telah berhasil Login');
+            $auth = Auth::user();
             return response()->json([
                 'error' => 400,
                 'message' => 'Berhasil',
+                'data' => $auth
             ]);
         }
             return response()->json([
@@ -33,7 +35,12 @@ class LoginController extends Controller
     }
 
     public function logout(Request $request){
-        Auth::logout();
-        return redirect('/');
+        $auth = Auth::logout();
+        // return redirect('/');
+        return response()->json([
+            'error' => 400,
+            'message' => 'Berhasil Logout',
+            'data' => $auth
+        ]);
     }
 }

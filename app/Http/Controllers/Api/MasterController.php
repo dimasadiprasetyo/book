@@ -62,9 +62,9 @@ class MasterController extends Controller
         if($validation->fails()) {
 
             return response()->json([
+                'data'    => [],
+                'message' =>  $validation->errors(),
                 'success' => false,
-                'message' => 'Silahkan Isi Bidang Yang Kosong',
-                'data'    => $validation->errors()
             ],401);
 
         } else {
@@ -79,6 +79,7 @@ class MasterController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => 'Post Berhasil Disimpan!',
+                    'data' => $post
                 ], 200);
             } else {
                 return response()->json([
@@ -98,7 +99,7 @@ class MasterController extends Controller
     public function show($id)
     {
         $master = Master::find($id);
-        return view('master.edit',compact('master'));
+        // return view('master.edit',compact('master'));
         return response()
         ->json([
             'success' => true,
@@ -113,9 +114,10 @@ class MasterController extends Controller
      * @param  \App\Master  $master
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Master $master,$id)
+    public function update(Request $request,Master $master,$id)
     {
-        $master = Master::find($id);
+
+        $master = Master::findOrFail($id);
         $master->id_master = $request->id_master;
         $master->nama_master = $request->nama_master;
         $master->keterangan = $request->keterangan;
@@ -135,11 +137,12 @@ class MasterController extends Controller
      */
     public function destroy($id)
     {
-        Master::destroy($id);
+        $master = Master::destroy($id);
         return response()->json([
             'success' => true,
             'status'=>200,
-            'pesan'=>'data tidak diketahui '
+            'pesan'=>'data diketahui ',
+            'data' => $master
         ]);
     }
 }

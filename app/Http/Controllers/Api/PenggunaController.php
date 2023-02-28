@@ -41,12 +41,24 @@ class PenggunaController extends Controller
     
     public function store(Request $request)
     {
-        User::create([
+        $pengguna = User::create([
             'name'=>$request->name,
             'username'=>$request->username,
             'level'=>$request->level,
             'password'=> (new BcryptHasher())->make($request->password),
+            'api_token'=> (new BcryptHasher())->make($request->username),
         ]);
+        if($pengguna) {
+            return response()->json([
+                'success' => true,
+                'pengguna'    => $pengguna,  
+            ], 201);
+        }
+
+        //return JSON process insert failed 
+        return response()->json([
+            'success' => false,
+        ], 409);
     }
 
     public function read(Request $request)

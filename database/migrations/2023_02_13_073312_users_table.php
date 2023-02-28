@@ -20,6 +20,7 @@ class UsersTable extends Migration
             $table->string('level');
             $table->string('password');
             $table->rememberToken();
+            $table->string('api_token', 80)->unique()->nullable()->default(null);
             $table->timestamps();
         });
     }

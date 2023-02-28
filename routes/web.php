@@ -13,13 +13,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {return view('auth.login');})->name('login');
+Route::get('/', function () {
+  return view('auth.login');})->name('login');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/postlogin','Web\LoginController@postlogin')->name('postlogin');
 Route::get('/logout','Web\LoginController@logout')->name('logout');
-// Route::get('user/login', 'Auth\UserAuthController@getLogin')->name('user.login');
-// Route::post('user/login', 'Auth\UserAuthController@postLogin');
-// Route::post('user/logout', 'Auth\UserAuthController@postLogout')->name('user.logout');
 
 // Route::middleware('auth:user')->group(function(){
 Route::group(['middleware' => ['auth']], function(){
@@ -31,8 +29,8 @@ Route::group(['middleware' => ['auth']], function(){
       Route::get('/store','Web\MasterController@store')->name('store');
       Route::get('/show/{id}','Web\MasterController@show')->name('show');
       Route::get('/update/{id}','Web\MasterController@update')->name('update');
-      Route::delete('delete/{id}', 'Web\MasterController@destroy')->name('delete.master');
-      Route::get('yajra/Yajra', 'Web\MasterController@Yajra')->name('yajra');
+      Route::delete('delete', 'Web\MasterController@destroy')->name('delete.master');
+      Route::get('pencarian/json', 'Web\MasterController@json')->name('pencarian/json');
 
       // transaksi
       Route::get('/trk','Web\TransaksiController@index')->name('trk.index');

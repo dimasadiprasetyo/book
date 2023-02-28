@@ -21,7 +21,7 @@ class TransaksiController extends Controller
         $tmp = Transaksi::with('master')->get();
         $ms = Master::all();
         $ms = Master::select('id', 'nama_master')->get();
-        return view('transaksi.index',compact('tmp','ms'));
+        // return view('transaksi.index',compact('tmp','ms'));
         return response()
         ->json([
             'success' => true,
@@ -32,7 +32,7 @@ class TransaksiController extends Controller
     public function create()
     {
         $master = Master::all();
-        return view('transaksi.create',compact('master'));
+        // return view('transaksi.create',compact('master'));
         return response()
         ->json([
             'success' => true,
@@ -51,16 +51,12 @@ class TransaksiController extends Controller
 
         $validation = Validator::make($request->all(), [
             'id_master'=> 'required',
-            'nama_apk'=>'required',
             'keterangan'=>'required',
-            'catatan'=>'required',
             'Lk'=>'required',
         ],
             [
                 'id_master.required'=>'Masukkan Data!',
-                'nama_master.required'=>'Masukkan Data!',
                 'keterangan.required'=>'Masukkan Data! apabila kosong tulis -',
-                'catatan.required'=>'Masukkan Data! apabila kosong tulis -',
                 'Lk.required'=>'Masukkan Data! apabila kosong tulis -',
             ]
         );
@@ -75,22 +71,17 @@ class TransaksiController extends Controller
         }else{
             $post = Transaksi::create([
                 'id_master'=>$request->id_master,
-                'nama_apk'=>$request->nama_apk,
                 'keterangan'=>$request->keterangan,
-                'catatan'=>$request->catatan,
+                'tgl'=>$request->tgl,
                 'Lk'=>$request->Lk,
             ]);
-            return redirect(route('trk.index'));
+            // return redirect(route('trk.index'));
             if ($post) {
                 return response()->json([
                     'success' => true,
                     'message' => 'Post Berhasil Disimpan!',
+                    'data' => $post
                 ], 200);
-            }else{
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Post Gagal Disimpan!',
-                ], 401);
             }
         }
 
@@ -108,7 +99,12 @@ class TransaksiController extends Controller
         // dd($trk);
         $master = Master::all();
 	    $trk = DB::table('transaksis')->where('id_ts',$id_ts)->get();
-	    return view('transaksi.edit', compact('master'),['trk' => $trk]);
+        return response()
+        ->json([
+            'success' => true,
+            'data' => $master,$trk
+        ]);
+	    
     }
 
    
@@ -121,18 +117,18 @@ class TransaksiController extends Controller
      */
     public function update(Request $request)
     {
-       
-        // $transaksi->update($request->all());
-
         $transaksi = Transaksi::where('id_ts', $request->id_ts)
           ->update([
             'id_master'=>$request->id_master,
-            'nama_apk'=>$request->nama_apk,
             'keterangan'=>$request->keterangan,
-            'catatan'=>$request->catatan,
+            'tgl'=>$request->tgl,
             'Lk'=>$request->Lk,
           ]);
-        return redirect(route('trk.index'));
+          return response()
+            ->json([
+                'success' => true,
+                'data' => $transaksi
+            ]);
     }
 
     /**
@@ -144,6 +140,11 @@ class TransaksiController extends Controller
     public function destroy(Transaksi $transaksi,$id_ts)
     {
         $res=Transaksi::where('id_ts',$id_ts)->delete();
-        return back();
+        return response()->json([
+            'success' => true,
+            'status'=>200,
+            'pesan'=>'data diketahui ',
+            'data' => $res
+        ]);
     }   
 }

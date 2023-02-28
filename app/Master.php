@@ -10,7 +10,7 @@ class Master extends Model
     protected $primaryKey = 'id';
     protected $keyType = 'string';
     public $incrementing = false;
-    protected $fillable = ['id_master','nama_master','keterangan'];
+    protected $fillable = ['id_master','nama_master'];
 
     public function transaksi(){
         return  $this->hasMany('App\Transaksi','id','id_ts');

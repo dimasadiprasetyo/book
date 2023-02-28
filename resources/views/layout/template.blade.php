@@ -21,13 +21,15 @@
     <link rel="icon" href="{{ URL::asset('dist/img/icon.png') }}" type="image/x-icon"/>
     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    {{-- <link href="http://www.mysite.com/Jquery/javascript.js”> --}}
+
+    <link  href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css">
 
     {{-- datatable --}}
-      <link rel="stylesheet" href="{{asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
-      <link rel="stylesheet" href="{{asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-      <link rel="stylesheet" href="{{asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
-
-      <link rel="stylesheet" href="{{asset('dist/css/jquery.dataTables.min.css')}}">
+      
+      {{-- <link rel="stylesheet" href="{{asset('dist/css/jquery.dataTables.min.css')}}"> --}}
+      <link rel="stylesheet" href="{{asset('dist/css/simplePagination.css')}}">
     {{-- end --}}
 
 
@@ -106,25 +108,28 @@
     <!-- AdminLTE App -->
     <script src="{{asset('dist/js/adminlte.js')}}"></script>
     <!-- <script src="{{asset('dist/js/pages/dashboard.js')}}"></script> -->
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
 
 
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
     {{-- datatable --}}
-      <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
-      <script src="{{asset('plugins/datatables/jquery.dataTables.js')}}"></script>
-      <script src="{{asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-      <script src="{{asset('plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
-      <script src="{{asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
-      <script src="{{asset('plugins/jszip/jszip.min.js')}}"></script>
-      <script src="{{asset('plugins/pdfmake/pdfmake.min.js')}}"></script>
-      <script src="{{asset('plugins/pdfmake/vfs_fonts.js')}}"></script>
-      <script src="{{asset('plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
-      <script src="{{asset('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
-      <script src="{{asset('plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
-      <script src="{{asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
-      <script src="{{asset('plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
-      
+    
+      {{-- <script src="{{asset('dist/js/jquery.dataTables.min.js')}}"></script> --}}
+      {{-- <script src="{{asset('dist/js/bootstrap.min.js')}}"></script> --}}
+
+      <script src="{{asset('dist/js/jquery.slimscroll.min.js')}}"></script>
+      <script src="{{asset('dist/js/pagination.min.js')}}"></script>
+      <script src="{{asset('dist/js/jquery.simplePagination.js')}}"></script>
+
+
     {{-- endtable --}}
   </body>
 </html>

@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Master;
-use DataTables;
+use App\Models\User;
+use Illuminate\Contracts\Session\Session;
+use \Yajra\Datatables\Datatables;
+// use DataTables;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class MasterController extends Controller
@@ -17,8 +21,8 @@ class MasterController extends Controller
      */
     public function index()
     {
-        
-       return view('master.index');
+       $master = DB::table('masters')->simplePaginate(5);
+       return view('master.index',compact('master'));
     }
     /**
      * Store a newly created resource in storage.
@@ -28,65 +32,69 @@ class MasterController extends Controller
      */
     public function create()
     {
+        $kode = DB::table('masters')->max('id');
+        $addNol = '';
+    	$kode = str_replace("MS/", "", $kode);
+    	$kode = (int) $kode + 1;
+        $incrementKode = $kode;
+
         
-       return view('master.create');
+    	if (strlen($kode) == 1) {
+    		$addNol = "000";
+    	} elseif (strlen($kode) == 2) {
+    		$addNol = "00";
+    	} elseif (strlen($kode == 3)) {
+    		$addNol = "0";
+    	}
+
+    	$kodeBaru = "MS".$addNol.$incrementKode;
+
+
+       return view('master.create',compact('kodeBaru'));
     }
     
-    public function read()
-    {
-       $Masters = Master::orderBy("id_master", "desc")->get();
-       return response()->json([
-           'Masters' => $Masters,
-       ]);
-    }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // public function read(Request $request)
+    // {
+
+    //    $Masters = Master::orderBy("id_master", "desc")->get();
+    //    if ($request->ajax()){
+    //        return response()->json([
+    //            'Masters' => $Masters,
+    //        ]);
+    //    }
+       
+    // }
+   
     public function store(Request $request)
     {
         
-        $validation = Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'id_master'=> 'required',
             'nama_master'=>'required',
-            'keterangan'=>'required',
         ],
             [
-                'id_master.required'=>'Masukkan Data!',
-                'nama_master.required'=>'Masukkan Data!',
-                'keterangan.required'=>'Masukkan Data! apabila kosong tulis -',
-            ]
-        );
-        if($validation->fails()) {
-
-            return response()->json([
-                'success' => false,
-                'message' => 'Silahkan Isi Bidang Yang Kosong',
-                'data'    => $validation->errors()
-            ],401);
-
-        } else {
-
-            $post =  Master::create([
-                'id_master'=>$request->id_master,
-                'nama_master'=>$request->nama_master,
-                'keterangan'=>$request->keterangan,
+                'id_master.required'=>'Masukkan Kode Aplikasi!',
+                'nama_master.required'=>'Masukkan Nama Aplikasi!',
             ]);
+            
+            if ($validator -> fails())
+            {
+                return response()->json([
+                    'status' =>400,
+                    'errors'=>$validator->messages(),
 
-            if ($post) {
+                ]);
+            }else{
+                $master = new Master();
+                $master->id_master = $request->input('id_master');
+                $master->nama_master = $request->input('nama_master');
+                $master->save();
+                // Session::flash('sukses','Ini notifikasi SUKSES');
                 return response()->json([
-                    'success' => true,
+                    'success' => 200,
                     'message' => 'Post Berhasil Disimpan!',
-                ], 200);
-            } else {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Post Gagal Disimpan!',
-                ], 401);
+                ]);
             }
-        }
     }
 
     /**
@@ -115,16 +123,32 @@ class MasterController extends Controller
      */
     public function update(Request $request, Master $master,$id)
     {
-        $master = Master::find($id);
-        $master->id_master = $request->id_master;
-        $master->nama_master = $request->nama_master;
-        $master->keterangan = $request->keterangan;
-        $master->update();
-        return response()
-            ->json([
-                'success' => true,
-                'data' => $master
+
+        $validator = Validator::make($request->all(), [
+            'id_master'=> 'required',
+            'nama_master'=>'required',
+        ],
+            [
+                'id_master.required'=>'Masukkan Kode Aplikasi!',
+                'nama_master.required'=>'Masukkan Nama Aplikasi!',
             ]);
+        if($validator->fails()){
+            return response()->json([
+                'status'=>400,
+                'errors'=>$validator->messages()
+            ]);
+        }else{
+            $master = Master::find($id);
+            $master->id_master = $request->id_master;
+            $master->nama_master = $request->nama_master;
+            $master->update();
+            return response()
+                ->json([
+                    'success' =>200,
+                    'data' => $master,'Data Berhasil Diupdate'
+                ]);
+
+        }
     }
 
     /**
@@ -133,19 +157,52 @@ class MasterController extends Controller
      * @param  \App\Master  $master
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        Master::destroy($id);
-        return response()->json([
-            'success' => true,
-            'status'=>200,
-            'pesan'=>'data tidak diketahui '
-        ]);
+
+     public function json(){
+        $master = Master::query();
+        return Datatables::of($master)
+        ->addColumn('action', function ($master) {
+            $editBtn =  '<button ' .
+                            ' class="btn btn-primary btn-sm" ' .
+                            ' onclick="show(' . $master->id . ')">Edit' .
+                        '</button> ';
+
+            $deleteBtn =  '<button ' .
+                            ' class="btn btn-danger btn-sm delete show_confirm" ' .
+                            ' value = ('. $master->id .')>Delete' .
+                        '</button> ';
+
+            return  $editBtn . $deleteBtn;
+        })->make(true);
     }
 
-    public function Yajra(Request $request){
-        $query = Master::with(['badges'])->select(sprintf('%s.*', (new Master())->table));
-        $table = Datatables::of($query);
-        return $table->make(true);
+    public function destroy(Request $request,$id) {
+      
+            // $delete = User::destroy($id);
+            // return response()->json([
+            //                 'success' => $delete,
+            //                 'status'=>200,
+            //                 'pesan'=>'data tidak diketahui '
+            //             ]);
+
+            $master = Master::find($request->input('id'));
+            $master->delete();
+            return response()->json([
+                'success' => $master,
+                'status'=>200,
+                'pesan'=>'data tidak diketahui '
+            ]);
     }
+    
+
+
+    // public function search(Request $request)
+    // {
+    //    $Masters = Master::where('nama_master','like','%'.$request->search."%")->get();
+    //    return response()->json([
+    //        'Masters' => $Masters,
+    //    ]);
+    // }
+
+    
 }

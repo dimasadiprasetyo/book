@@ -19,7 +19,8 @@ class UserTableSeeder extends Seeder
             'username' => 'admin',
             'level' => 'Admin',
             'password' => bcrypt(12345),
-            // 'remember_token'=>Str::random(60),
+            'remember_token'=>Str::random(60),
+            'api_token'=>Str::random(60),
         ]);
     }
 }
