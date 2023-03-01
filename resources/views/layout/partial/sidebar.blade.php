@@ -1,9 +1,9 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link" style="background-color: #1e81b0;">
+    <a href="#" class="brand-link" style="background-color: #1e81b0; text-align-last: center">
         {{-- <img src="dist/img/book.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
         {{-- &nbsp;<i class="nav-icon fas fa-book" alt="icon" style="opacity: .8"></i> --}}
-        <span class="brand-text font-weight-light"> Logbook</span>
+        <span class="brand-text font-weight-light" style="text-align-last: center"> LogBOOKS</span>
     </a>
 
     <!-- Sidebar -->

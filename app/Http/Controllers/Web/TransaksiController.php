@@ -19,7 +19,7 @@ class TransaksiController extends Controller
      */
     public function index()
     {
-        $tmp = Transaksi::with('master','jenis')->get();
+        $tmp = Transaksi::orderBy('tgl','DESC')->with('master','jenis')->get();
         $ms = Master::all();
         $ms = Master::select('id', 'nama_master')->get();
         return view('transaksi.index',compact('tmp','ms'));

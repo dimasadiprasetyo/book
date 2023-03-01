@@ -22,11 +22,11 @@
                                     style="text-align: justify; width: 100%; height: 100%;" id="examples1">
                             <thead class="table-dark">
                                 <tr style="text-align-last: center">
-                                    <th width="5%">NO</th>
+                                    <th width="2%">NO</th>
                                     <th width="10%">NAMA APLIKASI</th>
-                                    <th width="8%">JENIS</th>
-                                    <th width="8%">TANGGAL</th>
-                                    <th width="10%">KETERANGAN</th> 
+                                    <th width="5%">JENIS</th>
+                                    <th width="3%">TANGGAL</th>
+                                    <th width="29%">KETERANGAN</th> 
                                     <th width="5%">AKSI</th>
                                 </tr>
                             </thead>

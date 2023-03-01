@@ -21,7 +21,7 @@
                 <div class="card-body">
                         <form action="{{route('update')}}" method="POST">
                             @csrf
-                            <input type="hidden" name="id_ts" value="{{$trk[0]->id_ts}}">
+                            <input type="hidden" name="id_ts" id="id_ts" value="{{$trk[0]->id_ts}}">
                             <div class="form-group">
                                 <label >NAMA APLIKASI</label>
                                 <select name="id_master" id="id_master" class="form-control select2 select2-hidden-accessible"

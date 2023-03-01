@@ -77,26 +77,27 @@
             </div>
     </div>
   
-    <!-- Modal Hapus -->
-    <div class="modal fade" id="exampleModalHapus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus Data</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <input type="hidden" id="modal_del">
-                        <Span>Apakah anda yakin ingin menghapus data?</Span>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
-                            <button type="button" class="btn btn-warning hapus"  id="hapus">Ya</button>
-                    
-                    </div>
-                </div>
+   <!-- Modal -->
+   {{-- <div class="modal fade" id="exampleModalHapus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus Data</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <div class="modal-body">
+                <input type="hidden" id="modal_del">
+                <Span>Apakah anda yakin ingin menghapus</Span>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Tidak</button>
+                <button type="button" class="btn btn-warning del_ya btn-sm" id="del_ya">Ya</button>
+            </div>
+        </div>
     </div>
+</div> --}}
+
 
 
     
@@ -114,14 +115,12 @@
                     processing: true,
                     serverSide: true,
                     ajax: 'pencarian/json',
-                    "order": [[ 0, "desc" ]],
+                    "order": [[ '0', "desc" ]],
                     columns: [
                         { data: 'id_master', name: 'id_master' },
                         { data: 'nama_master', name: 'nama_master' },
                         { data: 'action'},
                     ],
-                    // dom: 'Bfrtip',
-                    // buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
                 });
         });
 
@@ -168,11 +167,9 @@
                                 $('#save_data').append('<li>' + err_value + '</li>');
                             });   
                         }else{
-                            // $('#save_data').html("");
-                            alertSuccess('Data berhasil Disimpan') 
                             $(".btn-close").click();
                             location.reload();
-                            alertSuccess('Data tersimpan')
+                            // alertSuccess('Data tersimpan')
                         }
                     }
                 });
@@ -212,62 +209,40 @@
         // end
 
         // Tampilan modal hapus
-            $(document).on('click', '.show_confirm',function(e){
-                e.preventDefault();
-                var del_id = $(this).val();
-                $('#modal_del').val(del_id);
+            $(document).on('click', '.show_confirm',function(){
+                var id_ts = $(this).val();
+                $('#modal_del').val(id_ts);
                 $('#exampleModalHapus').modal('show');
             });
         // end
         
+          // Delete data
+            $('#Datatables').on('click','.show_confirm',function(){
+                    var id = $(this).data('id');
 
-        //  input data hapus
-                // function hapus(){
-                //     var del_id = $('#modal_del').val();
-                //     $.ajax({
-                //         type: "DELETE",
-                //         url: "{{url('delete')}}/" + del_id,
-                //         data: {
-                //             _token: "{{ csrf_token() }}",
-                //             "id" : del_id
-                //         },
-                //         success:function(response){
-                //             console.log('berhasil hapus');
-                //             console.log(response);
-                //             console.log(del_id);
-                //             $('#exampleModalHapus').modal('hide')
-                //             $(".btn-close").click();
-                //             // location.reload();
-                //         }
+                    var deleteConfirm = confirm("Apakah Anda yakin ingin menghapus data?");
+                    if (deleteConfirm == true) {
+                        // AJAX request
+                        $.ajax({
+                            url: "{{ url('delete/master') }}/" + id,
+                            type: "DELETE",
+                            data: {
+                                _token: "{{ csrf_token() }}",
+                                id: id
+                            },
+                            success: function(response){
+                                if(response.success == 1){
+                                    alert("Apakah anda yakin?");
+                                    location.reload();
+                                }else{
+                                        alert("Invalid ID.");
+                                }
+                            }
+                        });
+                    }
 
-                //     });
-                // }
-
-                $(document).on('click', '#hapus',function(e){
-                    e.preventDefault();
-                    let del_id = $('#modal_del').val();
-                    // var id = [];
-                    $.ajax({
-                        type: "DELETE",
-                        url: "{{url('delete')}}/" + del_id,
-                        data: {
-                            _token: "{{ csrf_token() }}",
-                            // id:id
-                        },
-                        success: function (response){
-                            console.log(response);
-                            $('#exampleModalHapus').modal('hide');
-                             location.reload();
-                        }
-                    });
-                });
-        // end
-        function alertSuccess(message) {
-           $('#alert').append(
-                '<div class="alert alert-success alert-dismissible fade show">' +
-                '<strong>Sukses!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-                $(window).scrollTop(0));
-        }
+            });
+         //end
 
 
          //-----------------------------Comment--------------------------//

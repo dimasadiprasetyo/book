@@ -167,31 +167,34 @@ class MasterController extends Controller
                             ' onclick="show(' . $master->id . ')">Edit' .
                         '</button> ';
 
-            $deleteBtn =  '<button ' .
-                            ' class="btn btn-danger btn-sm delete show_confirm" ' .
-                            ' value = ('. $master->id .')>Delete' .
-                        '</button> ';
+            $deleteBtn =  "<button class='btn btn-danger btn-sm delete show_confirm' 
+                                data-id='".$master->id."'>
+                                Delete
+                            </button>";
+            // $deleteBtn =  '<button ' .
+            //                 ' class="btn btn-danger btn-sm delete show_confirm">' .
+            //                 ' data-id='".$data->id.' .
+            //                 ' value = ('. $master->id .')>Delete' .
+            //             '</button> ';
 
             return  $editBtn . $deleteBtn;
         })->make(true);
     }
 
-    public function destroy(Request $request,$id) {
-      
-            // $delete = User::destroy($id);
-            // return response()->json([
-            //                 'success' => $delete,
-            //                 'status'=>200,
-            //                 'pesan'=>'data tidak diketahui '
-            //             ]);
+    public function destroy(Request $request)
+    {
+       $id = $request->post('id');
 
-            $master = Master::find($request->input('id'));
-            $master->delete();
-            return response()->json([
-                'success' => $master,
-                'status'=>200,
-                'pesan'=>'data tidak diketahui '
-            ]);
+       $destroy = Master::find($id);
+        if($destroy->delete()){
+            $response['success'] = 1;
+            $response['msg'] = 'Delete successfully'; 
+        }else{
+            $response['success'] = 0;
+            $response['msg'] = 'Invalid ID.';
+        }
+
+            return response()->json($response); 
     }
     
 

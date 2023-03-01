@@ -29,7 +29,7 @@ Route::group(['middleware' => ['auth']], function(){
       Route::get('/store','Web\MasterController@store')->name('store');
       Route::get('/show/{id}','Web\MasterController@show')->name('show');
       Route::get('/update/{id}','Web\MasterController@update')->name('update');
-      Route::delete('delete', 'Web\MasterController@destroy')->name('delete.master');
+      Route::delete('delete/master/{id}', 'Web\MasterController@destroy')->name('delete.master');
       Route::get('pencarian/json', 'Web\MasterController@json')->name('pencarian/json');
 
       // transaksi
