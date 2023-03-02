@@ -55,7 +55,7 @@
                       </div>
                       <div class="form-group">
                           <label for="Lk">KETERANGAN</label>
-                          <textarea class="form-control editor; text-left" name="Lk" id="Lk" placeholder="Masukkan Langkah - langkah" rows="4" required oninvalid="this.setCustomValidity('Isikan langkah-langkah')" oninput="setCustomValidity('')"></textarea>
+                          <textarea class="form-control  text-left" name="Lk" id="Lk" placeholder="Masukkan Langkah - langkah" rows="4" required oninvalid="this.setCustomValidity('Isikan langkah-langkah')" oninput="setCustomValidity('')"></textarea>
                       </div>
 
                       <button type="submit" class="btn btn-success btn-sm">SIMPAN</button>
@@ -70,13 +70,27 @@
 @endsection
 
 @push('awal')
+  {{-- <link href="node_modules/froala-editor/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" /> --}}
+  <link href='https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css' rel='stylesheet' type='text/css' />
 @endpush
 @push('akhir') 
-<script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+{{-- <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script> --}}
+<script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js'></script> 
 <script>
-  $(window).load(function () {
-  CKEDITOR.replace('Lk');
-  });
+  // $(window).load(function () {
+  // CKEDITOR.replace('Lk');
+  // });
+  // var editor = new FroalaEditor('#Lk');
+
+  
+  </script>
+  <script>
+    $(window).load(function(){
+      new FroalaEditor("#Lk", {
+        // enter: FroalaEditor.ENTER_DIV
+        enter: FroalaEditor.ENTER_BR
+      })
+    });   
   </script>
 @endpush
 

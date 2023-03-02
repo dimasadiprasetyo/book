@@ -14,23 +14,31 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css')}}">
+    {{-- <link href="{{asset('dist/css/custom.min.css')}}" rel="stylesheet"> --}}
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
+    
+    <link rel="icon" href="{{ URL::asset('dist/img/icon.png') }}" type="image/x-icon"/>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <link rel="icon" href="{{ URL::asset('dist/img/icon.png') }}" type="image/x-icon"/>
     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    {{-- <link href="http://www.mysite.com/Jquery/javascript.js”> --}}
-
+    
     <link  href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css">
 
     {{-- datatable --}}
-      
-      {{-- <link rel="stylesheet" href="{{asset('dist/css/jquery.dataTables.min.css')}}"> --}}
+  
       <link rel="stylesheet" href="{{asset('dist/css/simplePagination.css')}}">
     {{-- end --}}
+    
+     <!-- Bootstrap -->
+     {{-- <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
+  
+   
+    
 
 
   </head>
@@ -128,7 +136,7 @@
       <script src="{{asset('dist/js/jquery.slimscroll.min.js')}}"></script>
       <script src="{{asset('dist/js/pagination.min.js')}}"></script>
       <script src="{{asset('dist/js/jquery.simplePagination.js')}}"></script>
-
+      
 
     {{-- endtable --}}
   </body>

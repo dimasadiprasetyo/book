@@ -42,6 +42,17 @@
             <div class="card transparent" >
                 <div class="card-body login-card-body" style="background: rgba(209, 196, 196, 0.171)">
                     <p class="login-box-msg" style="color: white"><b> Silahkan masukkan username dan password </b></p>
+                    @if(\Session::has('alert'))
+                         <div class="alert alert-danger">
+                            <div>{{Session::get('alert')}}</div>
+                        </div>
+                    @endif
+                    @if(\Session::has('alert-success'))
+                        <div class="alert alert-success">
+                            <div>{{Session::get('alert-success')}}
+                            </div>
+                        </div>
+                    @endif
                     <form action="{{route('postlogin')}}" method="post">
                         {{csrf_field()}}
                         <div class="input-group mb-3" style="background: rgba(238, 7, 7, 0)">

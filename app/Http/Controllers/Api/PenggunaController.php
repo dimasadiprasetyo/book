@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdatePasswordRequest;
+use App\Http\Resources\PenggunaResource;
 use App\User;
 use Illuminate\Hashing\BcryptHasher;
 use Illuminate\Http\Request;
@@ -23,7 +24,13 @@ class PenggunaController extends Controller
     
     public function index()
     {
-        return view('user.index');
+        $user = User::latest()->get();
+        return response()->json([
+            'data' => PenggunaResource::collection($user),
+            'message' => 'Fetch all posts',
+            'success' => true
+        ]);
+        // return view('user.index');
     }
 
     /**

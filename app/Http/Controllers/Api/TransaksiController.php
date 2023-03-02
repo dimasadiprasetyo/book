@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TransaksiResource;
 use App\Master;
 use App\Transaksi;
 use Illuminate\Http\Request;
@@ -21,11 +22,10 @@ class TransaksiController extends Controller
         $tmp = Transaksi::with('master')->get();
         $ms = Master::all();
         $ms = Master::select('id', 'nama_master')->get();
-        // return view('transaksi.index',compact('tmp','ms'));
-        return response()
-        ->json([
-            'success' => true,
-            'data' => $ms,$tmp
+        return response()->json([
+            'data' => TransaksiResource::collection($tmp, $ms),
+            'message' => 'Fetch all posts',
+            'success' => true
         ]);
     }
 
@@ -51,40 +51,35 @@ class TransaksiController extends Controller
 
         $validation = Validator::make($request->all(), [
             'id_master'=> 'required',
-            'keterangan'=>'required',
+            'id_nama'=>'required',
+            'tgl'=>'required',
             'Lk'=>'required',
         ],
             [
                 'id_master.required'=>'Masukkan Data!',
-                'keterangan.required'=>'Masukkan Data! apabila kosong tulis -',
+                'id_nama.required'=>'Masukkan Data! apabila kosong tulis -',
+                'tgl.required'=>'Masukkan Data! apabila kosong tulis -',
                 'Lk.required'=>'Masukkan Data! apabila kosong tulis -',
-            ]
-        );
-        if($validation->fails()) {
-
-            return response()->json([
-                'success' => false,
-                'message' => 'Silahkan Isi Bidang Yang Kosong',
-                'data'    => $validation->errors()
-            ],401);
-
-        }else{
-            $post = Transaksi::create([
-                'id_master'=>$request->id_master,
-                'keterangan'=>$request->keterangan,
-                'tgl'=>$request->tgl,
-                'Lk'=>$request->Lk,
             ]);
-            // return redirect(route('trk.index'));
-            if ($post) {
+            if ($validation -> fails()){
                 return response()->json([
-                    'success' => true,
+                    'status' =>400,
+                    'errors'=>$validation->messages(),
+                ]);
+            }else{
+                $transaksi = new Transaksi();
+                $transaksi->id_master = $request->input('id_master');
+                $transaksi->id_nama = $request->input('id_nama');
+                $transaksi->tgl = $request->input('tgl');
+                $transaksi->Lk = $request->input('Lk');
+                return response()->json([
+                    'success' => 200,
                     'message' => 'Post Berhasil Disimpan!',
-                    'data' => $post
-                ], 200);
+                    'data' => $transaksi
+                ]);
             }
-        }
-
+        
+        
       
     }
 
@@ -102,7 +97,7 @@ class TransaksiController extends Controller
         return response()
         ->json([
             'success' => true,
-            'data' => $master,$trk
+            'data' => $trk
         ]);
 	    
     }
@@ -115,20 +110,38 @@ class TransaksiController extends Controller
      * @param  \App\Transaksi  $transaksi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, Master $master,$id)
     {
-        $transaksi = Transaksi::where('id_ts', $request->id_ts)
-          ->update([
-            'id_master'=>$request->id_master,
-            'keterangan'=>$request->keterangan,
-            'tgl'=>$request->tgl,
-            'Lk'=>$request->Lk,
-          ]);
-          return response()
-            ->json([
-                'success' => true,
+
+        $validation = Validator::make($request->all(), [
+            'id_master'=> 'required',
+            'id_nama'=>'required',
+            'tgl'=>'required',
+            'Lk'=>'required',
+        ],
+            [
+                'id_master.required'=>'Masukkan Data!',
+                'id_nama.required'=>'Masukkan Data! apabila kosong tulis -',
+                'tgl.required'=>'Masukkan Data! apabila kosong tulis -',
+                'Lk.required'=>'Masukkan Data! apabila kosong tulis -',
+            ]);
+        if ($validation -> fails()){
+            return response()->json([
+                'status' =>400,
+                'errors'=>$validation->messages(),
+            ]);
+        }else{
+            $transaksi = new Transaksi();
+            $transaksi->id_master = $request->input('id_master');
+            $transaksi->id_nama = $request->input('id_nama');
+            $transaksi->tgl = $request->input('tgl');
+            $transaksi->Lk = $request->input('Lk');
+            return response()->json([
+                'success' => 200,
+                'message' => 'Post Berhasil Disimpan!',
                 'data' => $transaksi
             ]);
+        }
     }
 
     /**

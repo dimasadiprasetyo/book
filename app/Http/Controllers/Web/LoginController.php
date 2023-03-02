@@ -19,9 +19,9 @@ class LoginController extends Controller
         // $up = $request->only('username','password');
 
         if (Auth::attempt($request->only('username', 'password'),$ingat)) {
-            return redirect('/home')->with('success','Selamat! Anda telah berhasil Login');
+            return redirect('/home')->with('alert-success','Selamat! Anda telah berhasil Login');
         }
-            return redirect('/')->with('message','Username atau Password salah');
+            return redirect('/')->with('alert','Username atau Password salah!!');
     }
 
     public function logout(Request $request){

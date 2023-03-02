@@ -37,7 +37,7 @@ Route::get('/logout','Api\LoginController@logout')->name('logout');
     Route::get('/create','Api\TransaksiController@create')->name('trk.create');
     Route::post('/store','Api\TransaksiController@store')->name('store');
     Route::get('/edit/{id_ts}','Api\TransaksiController@show')->name('edit');
-    Route::post('/update','Api\TransaksiController@update')->name('update');
+    Route::post('/update/trk/{id}','Api\TransaksiController@update')->name('update');
     Route::delete('/delete/trx/{id_ts}','Api\TransaksiController@destroy')->name('delete.trx');
 
     //   user
